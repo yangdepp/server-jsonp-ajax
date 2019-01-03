@@ -36,16 +36,39 @@
   // 因此可以将操作dom的操作放在script中，可以做到不刷新页面改变dom
   button.addEventListener('click', (e) => {
     let script = document.createElement('script');
-    script.src = '/pay';
+    // 生成随机数的函数名
+    let functionName = 'jsonp' + parseInt(Math.random() * 100000, 10)
+    window[functionName] = (result) => {
+      if (result.success) {
+        amount.innerText = result.left;
+      } else {
+
+      }
+    }
+
+    script.src = `/pay?callback=${functionName}`;
     document.body.appendChild(script);
     script.onload = (e) => {
       e.currentTarget.remove();
+      delete window[functionName]
     }
     script.onerror = () => {
-      alert('fail')
+      alert('fail');
+      delete window[functionName]
     }
   })
 
+
+  /*  JSONP
+    请求方： A网站的客户端（浏览器）
+    响应方： B网站的服务端（服务器）
+    1、请求方创建script标签，src指向响应方，同时get请求在URL后传一个查询参数?callbackName=
+    2、响应方根据查询参数callbackName,构造形如 xxx.call(undefined, '返回的数据，可以是string或者JSON对象')*/
+
+
+  /*  约定：
+    callbackName -> callback
+    xxx -> 随机数*/
 </script>
 
 </html>

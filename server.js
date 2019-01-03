@@ -40,7 +40,14 @@ var server = http.createServer(function (request, response) {
     response.statusCode = 200
     // response.write(fs.readFileSync('./img/image.png'))
     response.write(`
-      amount.innerText = amount.innerText - 1;
+      // 不关心页面dom
+      // 只返回一个函数
+      // ${query.callback}.call(undefined, 'success')
+      // 直接返回JSON
+      ${query.callback}.call(undefined, {
+        "success": true,
+        "left": ${newAmount},
+      })
     `)
     response.end()
   } else {
