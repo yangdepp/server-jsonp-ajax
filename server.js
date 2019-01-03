@@ -12,7 +12,9 @@ var server = http.createServer(function (request, response) {
   var parsedUrl = url.parse(request.url, true)
   var pathWithQuery = request.url
   var queryString = ''
-  if (pathWithQuery.indexOf('?') >= 0) { queryString = pathWithQuery.substring(pathWithQuery.indexOf('?')) }
+  if (pathWithQuery.indexOf('?') >= 0) {
+    queryString = pathWithQuery.substring(pathWithQuery.indexOf('?'))
+  }
   var path = parsedUrl.pathname
   var query = parsedUrl.query
   var method = request.method
@@ -22,18 +24,24 @@ var server = http.createServer(function (request, response) {
   console.log('含查询字符串的路径\n' + pathWithQuery)
 
   if (path === '/') {
-    var string = fs.readFileSync('./jsonp/index.html', 'utf-8')
+    // var string = fs.readFileSync('./jsonp/index.html', 'utf-8')
+    var string = fs.readFileSync('./jsonp/index2.html', 'utf-8')
     var amount = fs.readFileSync('./db', 'utf-8');
     string = string.replace('&&&amount&&&', amount)
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     response.write(string)
     response.end()
-  } else if (path === '/pay' && method.toUpperCase() === 'POST') {
+  } else if (path === '/pay') {
     var amount = fs.readFileSync('./db', 'utf-8');
     var newAmount = amount - 1;
     fs.writeFileSync('./db', newAmount)
-    response.write('success')
+    response.setHeader('content-type', 'application/javascript');
+    response.statusCode = 200
+    // response.write(fs.readFileSync('./img/image.png'))
+    response.write(`
+      amount.innerText = amount.innerText - 1;
+    `)
     response.end()
   } else {
     response.statusCode = 404

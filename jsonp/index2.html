@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jsonp学习</title>
+</head>
+
+<body>
+<h5>您的账户余额是<span id="amount">&&&amount&&&</span></h5>
+<button id="button">付款</button>
+
+<!--动态的创建一个图片、或者script标签，发送请求-->
+</body>
+<script>
+  /*  button.addEventListener('click', (e) => {
+      // 用image创建一个请求
+      // 缺点是只能用get方法
+      let image = document.createElement('img');
+      image.src = '/pay';
+      image.onload = () => {
+        alert('打钱成功')
+        // 成功后不刷新页面，直接操作dom减一
+        amount.innerText = amount.innerText - 1
+      }
+      image.onerror = () => {
+        alert('打钱失败')
+      }
+    })*/
+
+
+  // 用script发请求
+  // 动态创建一个script标签，并且浏览器会自动执行script中的代码，
+  // 因此可以将操作dom的操作放在script中，可以做到不刷新页面改变dom
+  button.addEventListener('click', (e) => {
+    let script = document.createElement('script');
+    script.src = '/pay';
+    document.body.appendChild(script);
+    script.onload = (e) => {
+      e.currentTarget.remove();
+    }
+    script.onerror = () => {
+      alert('fail')
+    }
+  })
+
+</script>
+
+</html>
