@@ -25,7 +25,8 @@ var server = http.createServer(function (request, response) {
 
   if (path === '/') {
     // var string = fs.readFileSync('./jsonp/index.html', 'utf-8')
-    var string = fs.readFileSync('./jsonp/index2.html', 'utf-8')
+    // var string = fs.readFileSync('./jsonp/index2.html', 'utf-8')
+    var string = fs.readFileSync('./jsonp/index3.html', 'utf-8')
     var amount = fs.readFileSync('./db', 'utf-8');
     string = string.replace('&&&amount&&&', amount)
     response.statusCode = 200
