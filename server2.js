@@ -24,34 +24,30 @@ var server = http.createServer(function (request, response) {
   console.log('含查询字符串的路径\n' + pathWithQuery)
 
   if (path === '/') {
-    // var string = fs.readFileSync('./jsonp/index.html', 'utf-8')
-    // var string = fs.readFileSync('./jsonp/index2.html', 'utf-8')
-    // var string = fs.readFileSync('./jsonp/index3.html', 'utf-8')
-    var string = fs.readFileSync('./ajax/index.html', 'utf-8')
-    var amount = fs.readFileSync('./db', 'utf-8');
-    string = string.replace('&&&amount&&&', amount)
+    let string = fs.readFileSync('./ajax/index2.html', 'utf-8')
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     response.write(string)
     response.end()
-  } else if (path === '/pay') {
-    var amount = fs.readFileSync('./db', 'utf-8');
-    var newAmount = amount - 1;
-    fs.writeFileSync('./db', newAmount)
-    response.setHeader('content-type', 'application/javascript');
+  } else if (path === '/main2.js') {
+    let string = fs.readFileSync('./ajax/main2.js', 'utf-8')
     response.statusCode = 200
-    // response.write(fs.readFileSync('./img/image.png'))
-    response.write(`
-      // 不关心页面dom
-      // 只返回一个函数
-      // ${query.callback}.call(undefined, 'success')
-      // 直接返回JSON
-      ${query.callback}.call(undefined, {
-        "success": true,
-        "left": ${newAmount},
-      })
-    `)
+    response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
+    response.write(string)
     response.end()
+  } else if (path === '/xxx') {
+    response.statusCode = 200
+    response.setHeader('Content-Type', 'text/json;charset=utf-8')
+    response.write(`
+      {
+        "note":{
+          "to": "小谷",
+          "from": "方方",
+          "heading": "打招呼",
+          "content": "hi"
+        }
+      }
+    `)
   } else {
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html;charset=utf-8')

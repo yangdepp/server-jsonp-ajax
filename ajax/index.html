@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
@@ -7,24 +8,35 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ajax</title>
 </head>
+
 <body>
-  <h5></h5>
-  <button id="myButton">点我</button>
+<h5></h5>
+<button id="myButton">点我</button>
 
-  <script>
-    myButton.addEventListener('click', (e)=>{
-      let request = new XMLHttpRequest();
-      request.open('post', '/pay')
-      request.send()
-      request.onreadystatechange
-    })
+<script>
+  myButton.addEventListener('click', (e) => {
+    let request = new XMLHttpRequest();
+    request.open('post', '/pay')
+    request.setRequestHeader('yang', '18');
+    request.setRequestHeader('Content-Type', 'x-www-form-url-encoded')
+    request.send()
+    request.onreadystatechange = () => {
+      if (request.status >= 200 && request.status < 300) {
+        console.log('请求成功')
+        console.log(request.getAllResponseHeaders())
+        console.log(request.getResponseHeader('Content-Type'))
+      } else if (request.status >= 400) {
+        console.log('请求失败')
+      }
+    }
+  })
 
-  </script>
-
+</script>
 
 
 <!--  1、使用XMLHttpRequest发请求
-  2、服务器返回XML格式的字符串（或者JSON）
-  3、JS解析XML，并局部更新页面-->
+2、服务器返回XML格式的字符串（或者JSON）
+3、JS解析XML，并局部更新页面-->
 </body>
+
 </html>
