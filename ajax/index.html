@@ -9,7 +9,17 @@
 </head>
 <body>
   <h5></h5>
+  <button id="myButton">点我</button>
 
+  <script>
+    myButton.addEventListener('click', (e)=>{
+      let request = new XMLHttpRequest();
+      request.open('post', '/pay')
+      request.send()
+      request.onreadystatechange
+    })
+
+  </script>
 
 
 
