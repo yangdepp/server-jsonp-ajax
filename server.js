@@ -22,7 +22,6 @@ var server = http.createServer(function (request, response) {
   /******** 从这里开始看，上面不要看 ************/
 
   console.log('含查询字符串的路径\n' + pathWithQuery)
-
   if (path === '/') {
     // var string = fs.readFileSync('./jsonp/index.html', 'utf-8')
     // var string = fs.readFileSync('./jsonp/index2.html', 'utf-8')
