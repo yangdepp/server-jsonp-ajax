@@ -24,13 +24,13 @@ var server = http.createServer(function (request, response) {
   console.log('含查询字符串的路径\n' + pathWithQuery)
 
   if (path === '/') {
-    let string = fs.readFileSync('./ajax/index2.html', 'utf-8')
+    let string = fs.readFileSync('./ajax/index3.html', 'utf-8')
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     response.write(string)
     response.end()
-  } else if (path === '/main2.js') {
-    let string = fs.readFileSync('./ajax/main2.js', 'utf-8')
+  } else if (path === '/main3.js') {
+    let string = fs.readFileSync('./ajax/main3.js', 'utf-8')
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
     response.write(string)
@@ -48,6 +48,7 @@ var server = http.createServer(function (request, response) {
         }
       }
     `)
+    response.end()
   } else {
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
